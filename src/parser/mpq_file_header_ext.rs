@@ -6,9 +6,10 @@ use super::LITTLE_ENDIAN;
 use nom::error::dbg_dmp;
 use nom::number::complete::{i16, i64};
 use nom::*;
+use serde::{Serialize, Deserialize};
 
 /// Extended fields only present in the Burning Crusade format and later
-#[derive(Debug, PartialEq, Default, Clone, Copy)]
+#[derive(Debug, PartialEq, Default, Clone, Copy, Serialize, Deserialize)]
 pub struct MPQFileHeaderExt {
     /// Offset to the beginning of the extended block table, relative to the beginning of the archive.
     extended_block_table_offset: i64,

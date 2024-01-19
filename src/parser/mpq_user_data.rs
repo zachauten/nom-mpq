@@ -10,9 +10,10 @@ use nom::bytes::complete::take;
 use nom::error::dbg_dmp;
 use nom::number::complete::u32;
 use nom::*;
+use serde::{Serialize, Deserialize};
 
 /// The MPQ User Data
-#[derive(Debug, Default)]
+#[derive(Debug, Default, Serialize, Deserialize)]
 pub struct MPQUserData {
     /// The number of bytes that have been allocated for user data.
     pub user_data_size: u32, // This variable is unused

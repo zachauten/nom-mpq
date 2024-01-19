@@ -17,9 +17,10 @@ use super::LITTLE_ENDIAN;
 use nom::error::dbg_dmp;
 use nom::number::complete::u32;
 use nom::*;
+use serde::{Serialize, Deserialize};
 
 /// The block tables of the MPQ archive, they are stored sequentially and encrypted.
-#[derive(Debug, PartialEq, Default, Clone)]
+#[derive(Debug, PartialEq, Default, Clone, Serialize, Deserialize)]
 pub struct MPQBlockTableEntry {
     /// Block Offset, an offset of the beginning of the block,
     /// relative to the beginning of the archive header, this can

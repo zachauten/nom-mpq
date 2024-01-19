@@ -11,6 +11,7 @@ use nom::IResult;
 use parser::MPQHashType;
 use std::collections::HashMap;
 use std::io::Read;
+use serde::{Serialize, Deserialize};
 
 pub mod builder;
 pub mod error;
@@ -48,7 +49,7 @@ pub const COMPRESSION_ZLIB: u8 = 2;
 pub const COMPRESSION_BZ2: u8 = 16;
 
 /// The main MPQ object that contains the parsed entries
-#[derive(Debug, Default)]
+#[derive(Debug, Default, Serialize, Deserialize)]
 pub struct MPQ {
     /// The Archive Header containing format version, the offsets for the
     /// block table and hash table.

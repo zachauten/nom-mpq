@@ -7,9 +7,10 @@ use super::LITTLE_ENDIAN;
 use nom::error::dbg_dmp;
 use nom::number::complete::{u16, u32};
 use nom::*;
+use serde::{Serialize, Deserialize};
 
 /// The MPQ File Header
-#[derive(Debug, Default, PartialEq, Clone, Copy)]
+#[derive(Debug, Default, PartialEq, Clone, Copy, Serialize, Deserialize)]
 pub struct MPQFileHeader {
     /// Size of the archive header.
     pub header_size: u32,

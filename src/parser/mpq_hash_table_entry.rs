@@ -29,9 +29,10 @@ use super::LITTLE_ENDIAN;
 use nom::error::dbg_dmp;
 use nom::number::complete::{u16, u32};
 use nom::*;
+use serde::{Serialize, Deserialize};
 
 /// The hash table entry definition
-#[derive(Debug, PartialEq, Default, Clone)]
+#[derive(Debug, PartialEq, Default, Clone, Serialize, Deserialize)]
 pub struct MPQHashTableEntry {
     /// The hash of the file path, using method A.
     pub hash_a: u32,

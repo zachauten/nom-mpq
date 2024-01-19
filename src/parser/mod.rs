@@ -17,6 +17,7 @@ use std::convert::From;
 use std::convert::TryFrom;
 use std::fs::File;
 use std::io::prelude::*;
+use wasm_bindgen::prelude::*;
 
 pub mod mpq_block_table_entry;
 pub mod mpq_file_header;
@@ -181,6 +182,19 @@ pub fn read_headers(input: &[u8]) -> IResult<&[u8], (MPQFileHeader, Option<MPQUs
         MPQSectionType::Unknown => panic!("Unable to identify magic/section-type combination"),
     };
     Ok((input, (archive_header, user_data)))
+}
+
+#[wasm_bindgen]
+pub fn parse_wasm(input: Box<[u8]>) -> Result<JsValue, JsError>{
+    match parse(&*input) {
+        Ok((bytes, mpq)) => {
+            // Ok(Box::from(bytes))
+            Ok(serde_wasm_bindgen::to_value(&mpq).unwrap())
+        },
+        Err(e) => {
+            Err(JsError::new("error!"))
+        }
+    }
 }
 
 /// Parses the whole input into an MPQ
