@@ -185,7 +185,19 @@ pub fn read_headers(input: &[u8]) -> IResult<&[u8], (MPQFileHeader, Option<MPQUs
 }
 
 #[wasm_bindgen]
-pub fn parse_wasm(input: Box<[u8]>) -> Result<JsValue, JsError>{
+pub fn get_files_wasm(input: Box<[u8]>) -> Result<JsValue, JsError> {
+    match parse(&*input) {
+        Ok((_bytes, mpq)) => {
+            Ok(serde_wasm_bindgen::to_value(&mpq.get_files(&input)).unwrap())
+        },
+        Err(e) => {
+            Err(JsError::new("error!"))
+        }
+    }
+}
+
+#[wasm_bindgen]
+pub fn parse_wasm(input: Box<[u8]>) -> Result<JsValue, JsError> {
     match parse(&*input) {
         Ok((bytes, mpq)) => {
             // Ok(Box::from(bytes))
